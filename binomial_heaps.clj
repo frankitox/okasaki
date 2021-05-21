@@ -43,9 +43,23 @@
     [([t] :seq)] (root t)
     [([t & ts'] :seq)] (min (root t) (find-min ts'))))
 
+(defn min-tree [ts]
+  (if (= 1 (count ts))
+    [(first ts) (list)]
+    (match [ts]
+      [([t & ts'] :seq)] (let [[t' ts''] (min-tree ts')]
+                           (if (< (root t) (root t'))
+                             [t ts']
+                             [t' (cons t ts'')])))))
+
+(defn delete-min [ts]
+  (let [[[_ _ ts1] ts2] (min-tree ts)]
+    (merge* ts1 ts2)))
+
 #_(link (leaf 3) (link (leaf 20) (leaf 1)))
 #_(insert 4 (insert 30 (insert 2 (insert 10 '()))))
 #_(merge* (insert 4 (insert 30 (insert 2 (insert 10 '())))) (insert 3 (insert 20 (insert 1 '()))))
 #_(find-min (merge* (insert 4 (insert 30 (insert 2 (insert 10 '())))) (insert 3 (insert 20 (insert 1 '())))))
+#_(delete-min (merge* (insert 4 (insert 30 (insert 2 (insert 10 '())))) (insert 3 (insert 20 (insert 1 '())))))
 
 ;; insert, merge heaps, findMin, deleteMin
