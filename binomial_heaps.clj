@@ -63,3 +63,4 @@
 #_(delete-min (merge* (insert 4 (insert 30 (insert 2 (insert 10 '())))) (insert 3 (insert 20 (insert 1 '())))))
 
 ;; insert, merge heaps, findMin, deleteMin
+;; all fns are O(log n)
